@@ -131,6 +131,8 @@ const inTable = (table, card) => {
 
 
 
+
+
 //class to hold the game
 class Match {
     constructor() {
