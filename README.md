@@ -4,7 +4,7 @@
 
 A township take on the popular card game Texas hold 'em. Where players compete against each other
 
-Skills:  JS / HTML / CSS
+Tools:  JS / HTML / CSS
 
 - 🔭 I’m currently working on this application with TedHopewell, PaulTebeila, tebo27CMD, Supa-Thobile2, NHLAMULOJ and ER-MOLLO 
 - 👯 We looking to collaborate with developers with an interest in developing games that will appeal to the kasi market. 
