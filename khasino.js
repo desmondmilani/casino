@@ -152,6 +152,7 @@ class Match {
             this.hand += 1;
             giveCards(this.cards, this.player1, this.player2);
             this.currentPlayer = "player2";
+            document.getElementById("player1Deck").style.display = "none";
             this.render();
             if (this.cards.length < 1) {
                 document.getElementById("fullDeck").src = "";
@@ -160,12 +161,38 @@ class Match {
     }
 
     switchPlayer = () => {
-        this.currentPlayer === "player1" ? this.currentPlayer = "player2" : this.currentPlayer = "player1"
+        let player1Deck = document.getElementById("player1Deck");
+        let player2Deck = document.getElementById("player2Deck");
+        if(this.currentPlayer === "player1") {
+            this.currentPlayer = "player2";
+            player1Deck.style.display = "none";
+            player2Deck.style.display = "flex";
+        } else {
+            this.currentPlayer = "player1";
+            player1Deck.style.display = "flex";
+            player2Deck.style.display = "none";
+        } 
     }
 
     dropCard = (cardIndex) => {
         if (this.currentPlayer === "player1") {
             let selectedCard = this.player1.playingCards[cardIndex];
+            let cardInfo = inTable(this.table, selectedCard)
+            console.log(cardInfo);
+
+            if (cardInfo.flag) {
+                this.player1.takenCards.push(this.table[cardInfo.position]);
+                this.player1.takenCards.push(selectedCard);
+                this.table.splice(cardInfo.position, 1);
+                this.player1.playingCards.splice(cardIndex, 1);
+                this.render();
+            } else {
+                this.table.push(selectedCard)
+                this.player1.playingCards.splice(cardIndex, 1);
+                this.render();
+            }
+
+            
         } else {
             let selectedCard = this.player2.playingCards[cardIndex];
             let cardInfo = inTable(this.table, selectedCard)
@@ -182,10 +209,11 @@ class Match {
                 this.player2.playingCards.splice(cardIndex, 1);
                 this.render();
             }
-            
-            
-            
+
+              
         }
+
+        this.switchPlayer();
     }
 
     takeCard = (cardIndex) => {
@@ -218,10 +246,19 @@ class Match {
 
         let text = "";
         for (i; i < length; i++) {
-            text += `<img src='${this.player1.playingCards[i].image}' />`;
+            text += `<img src='${this.player1.playingCards[i].image}' onclick='match.dropCard(${i})' />`;
         }
 
         player1Deck.innerHTML = text;
+    }
+    renderPlayer1Taken = () => {
+
+        if (this.player1.takenCards.length > 0) {
+            let player1Taken = document.getElementById("player1Taken");
+
+            let length = this.player1.takenCards.length;
+            player1Taken.src = this.player1.takenCards[length - 1].image;
+        }
     }
 
     renderPlayer2Taken = () => {
@@ -266,6 +303,7 @@ class Match {
 
     render = () => {
         this.renderPlayer1();
+        this.renderPlayer1Taken();
         this.renderPlayer2();
         this.renderPlayer2Taken();
         this.renderTable();
