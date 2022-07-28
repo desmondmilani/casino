@@ -1,4 +1,4 @@
-### Hi there 👋, Kasino
+### Kasino👋
 #### Koloi Kea Mang!
 ![Koloi Kea Mang!](https://arturssmirnovs.github.io/github-profile-readme-generator/images/banner.png)
 
