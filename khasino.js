@@ -110,29 +110,44 @@ const giveCards = (shuffledCards, player1, player2) => {
     }
 }
 
+//class to hold the game
+class Match {
+    constructor() {
+        this.player1 = new Player();
+        this.player2 = new Player();
+        this.table = [];
+        this.cards = shuffleCards(createFullDeck())
+        this.hand = 0;
+        this.currentPlayer = "";
+    }
+
+    startHand = () => {
+        if (this.hand > 1) {
+            console.log("The game is really over");
+        } else {
+            this.hand += 1;
+            giveCards(this.cards, this.player1, this.player2);
+            this.currentPlayer = "player2";
+        }
+    }
+
+    switchPlayer = () => {
+        this.currentPlayer === "player1" ? this.currentPlayer = "player2" : this.currentPlayer = "player1"
+    }
+
+    dropCard = (cardIndex) => {
+        if (this.currentPlayer === "player1") {
+            let selectedCard = this.player1
+        }
+    }
+    
+}
+
 //running code
-let list = createFullDeck();
-let shuffled = shuffleCards(list);
+let match = new Match();
 
-let p1 = new Player();
-let p2 = new Player();
+match.startHand();
 
 
+console.log(match);
 
-console.log("The entire cards");
-console.log(list);
-
-
-
-giveCards(shuffled, p1, p2);
-giveCards(shuffled, p1, p2);
-console.log("Cards for player 1");
-console.log(p1.playingCards);
-
-console.log("Cards for player 2");
-console.log(p2.playingCards);
-
-console.log("Shuffled cards");
-console.log(shuffled);
-
-giveCards(shuffled, p1, p2);
