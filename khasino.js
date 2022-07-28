@@ -137,7 +137,7 @@ class Match {
 
     dropCard = (cardIndex) => {
         if (this.currentPlayer === "player1") {
-            let selectedCard = this.player1
+            let selectedCard = this.player1.playingCards[cardIndex]
         }
     }
     
