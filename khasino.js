@@ -148,6 +148,7 @@ class Match {
     startHand = () => {
         if (this.hand > 1) {
             console.log("The game is really over");
+            this.checkWinner();
         } else {
             this.hand += 1;
             giveCards(this.cards, this.player1, this.player2);
@@ -307,6 +308,73 @@ class Match {
         this.renderPlayer2();
         this.renderPlayer2Taken();
         this.renderTable();
+    }
+
+    checkWinner = () => {
+        let player1Points = 0;
+        let player2Points = 0;
+        let player1Spade = 0;
+        let player2Spade = 0;
+
+        for (let i =0; i < this.player1.takenCards.length; i++) {
+            let card = this.player1.takenCards[i];
+
+            if (card.number === 1) {
+                player1Points += 1;
+            } else if (card.number === 2 && card.type === "spade") {
+                player1Points += 1;
+            } else if (card.number === 10 && card.type === "diamond") {
+                player1Points += 2;
+            } else {
+                player1Points += 0;
+            }
+
+            if (card.type === "spade") {
+                player1Spade += 1;
+            }
+        }
+
+        for (let i =0; i < this.player2.takenCards.length; i++) {
+            let card = this.player2.takenCards[i];
+
+            if (card.number === 1) {
+                player2Points += 1;
+            } else if (card.number === 2 && card.type === "spade") {
+                player2Points += 1;
+            } else if (card.number === 10 && card.type === "diamond") {
+                player2Points += 2;
+            } else {
+                player2Points += 0;
+            }
+
+            if (card.type === "spade") {
+                player2Spade += 1;
+            }
+        }
+
+        if (player1Spade > 5) {
+            player1Points += 2;
+        } else if (player2Spade > 5) {
+            player2Points += 2;
+        } else {
+            player1Points += 1;
+            player2Points += 1;
+        }
+
+        if (this.player1.takenCards.length > 20) {
+            player1Points += 2;
+        } else if (this.player2.takenCards.length > 20) {
+            player2Points += 2;
+        } else {
+            player1Points += 1;
+            player2Points += 1;
+        }
+
+        if (player1Points > player2Points) {
+            alert("Player1 won the game by (" + player1Points + ":" + player2Points + ")")
+        } else {
+            alert("Player2 won the game by (" + player2Points + ":" + player1Points + ")")
+        }
     }
  }
 
