@@ -381,6 +381,9 @@ class Match {
 //running code
 let match = new Match();
 
+let combinations = getCardCombinations(9);
 
-console.log(match);
+console.log(combinations);
+
+
 
